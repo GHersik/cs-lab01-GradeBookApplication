@@ -18,7 +18,34 @@ namespace GradeBook.GradeBooks
                 throw new InvalidOperationException();
             }
 
-            return base.GetLetterGrade(averageGrade);
+            double oneFifthStuds = Students.Count / 5;
+            double checkStudents = 0;
+
+            foreach (var student in Students)
+            {
+                if (averageGrade < student.AverageGrade)
+                {
+                    checkStudents += 1;
+                }
+            }
+
+            int dropGrade = 0;
+            while (checkStudents >= oneFifthStuds)
+            {
+                checkStudents -= oneFifthStuds;
+                dropGrade += 1;
+            }
+
+            if (dropGrade == 0)
+                return 'A';
+            else if (dropGrade == 1)
+                return 'B';
+            else if (dropGrade == 2)
+                return 'C';
+            else if (dropGrade == 3)
+                return 'D';
+            else
+                return 'F';
         }
     }
 }
